@@ -15,10 +15,7 @@ save_path = 'download/'
 
 
 def main():
-    # correct_csv(path+file_name)
 
-    # download_zip(url+catalog+zip_name, save_path, catalog)
-    # extract_zip(save_path+catalog+'1951_1955_m_k.zip')
 
     df_stations_coord = import_stations_coord(path+'correct-'+file_name)
     deg_min_sec2deg(df_stations_coord, 'lat')
@@ -72,11 +69,7 @@ def download_zip(link: str, path_to_save: str, catalog_to_save: str):
     return None
 
 def extract_zip(path_to_zip: str):
-    """
-    Extract zip file from path_to_zip and saves in same path
-    :param path_to_zip:
-    :return: None
-    """
+
     with zipfile.ZipFile(path_to_zip, 'r') as zip_ref:
         zip_ref.extractall(save_path+catalog)
 
@@ -84,12 +77,7 @@ def extract_zip(path_to_zip: str):
 
 
 def correct_csv(name: str) -> None:
-    """
-    this function search lines where is no seconds and fill them with '0', then save it
-    to csv file named 'correct-{name}'
-    :param name: name of the csv file
-    :return: None
-    """
+
     new_lines = []
     with open(name, 'r') as f:
         f.readline()  # skip first line
@@ -111,11 +99,7 @@ def correct_csv(name: str) -> None:
 
 
 def correct_line(line: str) -> str:
-    """
-    function fills lines where seconds in lon/lat are missing
-    :param line: string with data without seconds
-    :return: line with seconds filled
-    """
+
     splited_line = line.split(' ')
 
     # create new line filling 0 where seconds should be
@@ -159,11 +143,7 @@ def fix_split_names(line: str) -> str:
     return joined_string
 
 def index_of_start_data(list_line: list) -> int:
-    """
-    return the index of item -------- or KKKKKKKK etc.
-    :param list_line:
-    :return: index in list
-    """
+
     for item in list_line:
         if not re.match(r'^[KN\-]+$', item):
             continue
@@ -173,12 +153,7 @@ def index_of_start_data(list_line: list) -> int:
     return -1
 
 def save_csv(name: str, lines: list) -> None:
-    """
-    Save a csv file
-    :param name: name of the file
-    :param lines: list of lines
-    :return: None
-    """
+
     with open(name, 'w', encoding='utf-8') as f:
         for line in lines:
             f.write(line)
