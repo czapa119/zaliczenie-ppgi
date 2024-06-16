@@ -3,6 +3,7 @@ import requests
 import zipfile
 import os
 import re
+from openpyxl import Workbook
 
 path = 'data/'
 file_name = 'Stacje_klimat_utf-8.csv'
@@ -36,8 +37,6 @@ def main():
     merged_df = merged_df.reindex(columns=new_order)
     merged_df.to_excel('test.xlsx', index=False)
     print(merged_df)
-
-
 def deg_min_sec2deg(df: pd.DataFrame, begin: str):
     df[begin] = df[begin + ' deg'] + df[begin + ' min']/60 + df[begin + ' sec']/3600
     del df[begin + ' deg']
@@ -63,7 +62,6 @@ def import_stations_coord(csv):
                                             'lon deg', 'lon min', 'lon sec',
                                             'station', 'y1', 'y2', 'y3', 'y4', 'y5', 'y6', 'y7', 'y8'])
 
-
 def download_zip(link: str, path_to_save: str, catalog_to_save: str):
     """
     Download zip file from url to save_path/catalog
@@ -78,7 +76,6 @@ def download_zip(link: str, path_to_save: str, catalog_to_save: str):
         f.write(r.content)
 
     return None
-
 
 def extract_zip(path_to_zip: str):
     """
@@ -140,7 +137,6 @@ def correct_line(line: str) -> str:
 
     return joined_string
 
-
 def fix_split_names(line: str) -> str:
     row = line.split(' ')
     fixed_row = []
@@ -168,7 +164,6 @@ def fix_split_names(line: str) -> str:
 
     return joined_string
 
-
 def index_of_start_data(list_line: list) -> int:
     """
     return the index of item -------- or KKKKKKKK etc.
@@ -183,7 +178,6 @@ def index_of_start_data(list_line: list) -> int:
 
     return -1
 
-
 def save_csv(name: str, lines: list) -> None:
     """
     Save a csv file
@@ -197,11 +191,9 @@ def save_csv(name: str, lines: list) -> None:
 
     return None
 
-
 def remove_elements_from_index(ls: list, index: int) -> None:
     # remove from index to the end
     del ls[index:]
-
 
 if __name__ == '__main__':
     main()
