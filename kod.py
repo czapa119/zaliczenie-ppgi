@@ -63,13 +63,7 @@ def import_stations_coord(csv):
                                             'station', 'y1', 'y2', 'y3', 'y4', 'y5', 'y6', 'y7', 'y8'])
 
 def download_zip(link: str, path_to_save: str, catalog_to_save: str):
-    """
-    Download zip file from url to save_path/catalog
-    :param link: url to zip file
-    :param path_to_save:
-    :param catalog_to_save:
-    :return: None
-    """
+
     r = requests.get(link)
     os.makedirs(path_to_save + catalog_to_save, exist_ok=True)
     with open(path_to_save + catalog_to_save + '1951_1955_m_k.zip', 'wb') as f:
